@@ -635,6 +635,102 @@
     "image": "https://images.unsplash.com/photo-1612196808214-b8e1d6145a8c?w=400&h=400&fit=crop",
     "shop": "CeramicsByC 🎓",
     "categoryId": "garden"
-  }
+  },
+  {
+    "id": 54,
+    "name": "Dried Flower & Pampas Grass Arrangement — Glass Vase Included",
+    "price": 265,
+    "originalPrice": 330,
+    "discount": 20,
+    "rating": 4.9,
+    "sold": 255,  
+    "image": "https://images.pexels.com/photos/12312664/pexels-photo-12312664.jpeg",
+    "shop": "BloomByStu 🎓",
+    "categoryId": "home"  
+  },
+  {
+    "id": 55,
+    "name": "Handmade Air-Dry Clay Bud Vase — Minimalist, Matte Finish",
+    "price": 230,
+    "originalPrice": 290,
+    "discount": 21,
+    "rating": 4.8,
+    "sold": 380,
+    "image": "https://images.unsplash.com/photo-1612196808214-b8e1d6145a8c?w=400&h=400&fit=crop",
+    "shop": "CeramicsByC 🎓",
+    "categoryId": "home"
+  },
+  {
+    "id": 56,
+    "name": "Hand-Woven Rattan Basket — Oval, Storage or Display, Natural",
+    "price": 295,
+    "originalPrice": 370,
+    "discount": 20,
+    "rating": 4.7,
+    "sold": 175,
+    "image": "https://images.unsplash.com/photo-1606760227091-3dd870d97f1d?w=400&h=400&fit=crop",
+    "shop": "WeaversPH 🎓",
+    "categoryId": "home"
+  },
+  {
+  "id": 56,
+  "name": "Hand-Woven Rattan Basket — Oval, Storage or Display, Natural",
+  "price": 295,
+  "originalPrice": 370,
+  "discount": 20,
+  "rating": 4.7,
+  "sold": 175,
+  "image": "https://images.pexels.com/photos/30947449/pexels-photo-30947449.jpeg?auto=compress&cs=tinysrgb&h=400&w=400",
+  "shop": "WeaversPH 🎓",
+  "categoryId": "home"
+},
+{
+  "id": 57,
+  "name": "Classic Brown Leather Shoulder Bag",
+  "price": 1280,
+  "originalPrice": 1599,
+  "discount": 20,
+  "rating": 4.5,
+  "sold": 98,
+  "image": "https://images.pexels.com/photos/11829840/pexels-photo-11829840.jpeg?auto=compress&cs=tinysrgb&h=400&w=400",
+  "shop": "TrendSetters 🎓",
+  "categoryId": "fashion"
+},
+{
+  "id": 58,
+  "name": "Minimalist White Sneakers — Unisex",
+  "price": 1999,
+  "originalPrice": 2499,
+  "discount": 20,
+  "rating": 4.8,
+  "sold": 250,
+  "image": "https://images.pexels.com/photos/2529148/pexels-photo-2529148.jpeg?auto=compress&cs=tinysrgb&h=400&w=400",
+  "shop": "UrbanSteps 🎓",
+  "categoryId": "fashion"
+},
+{
+  "id": 59,
+  "name": "Stylish Black Fedora Hat — Classic",
+  "price": 650,
+  "originalPrice": 810,
+  "discount": 20,
+  "rating": 4.4,
+  "sold": 132,
+  "image": "https://images.pexels.com/photos/771742/pexels-photo-771742.jpeg?auto=compress&cs=tinysrgb&h=400&w=400",
+  "shop": "HatHub 🎓",
+  "categoryId": "fashion"
+},
+{
+  "id": 60,
+  "name": "Trendy Sunglasses — UV Protection, Classic Frame",
+  "price": 820,
+  "originalPrice": 1025,
+  "discount": 20,
+  "rating": 4.6,
+  "sold": 210,
+  "image": "https://images.pexels.com/photos/46710/pexels-photo-46710.jpeg?auto=compress&cs=tinysrgb&h=400&w=400",
+  "shop": "SunStyle 🎓",
+  "categoryId": "fashion"
+}
   
 ]

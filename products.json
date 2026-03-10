@@ -84,17 +84,18 @@
     "categoryId": "handmade"
   },
   {
-    "id": 8,
-    "name": "Handmade Soy Candle — Ylang-Ylang & Coconut, 200g Glass Jar",
-    "price": 210,
-    "originalPrice": 260,
-    "discount": 19,
-    "rating": 4.8,
-    "sold": 470,
-    "image": "https://images.unsplash.com/photo-1602607893610-8cce3aca5f57?w=400&h=400&fit=crop",
-    "shop": "Glow Crafts PH 🎓",
-    "categoryId": "handmade"
-  },
+ 
+  "id": 8,
+  "name": "Handmade Soy Candle — Ylang-Ylang & Coconut, 200g Glass Jar",
+  "price": 210,
+  "originalPrice": 260,
+  "discount": 19,
+  "rating": 4.8,
+  "sold": 470,
+  "image": "https://images.unsplash.com/photo-1603006905003-be475563bc59?auto=format&fit=crop&w=400&q=80",
+  "shop": "Glow Crafts PH 🎓",
+  "categoryId": "handmade"
+},
   {
     "id": 9,
     "name": "Homemade Leche Flan in Llanera — 3pcs, Creamy Classic Style",

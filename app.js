@@ -26,13 +26,10 @@ createApp({
 
     // ── State ──────────────────────────────────────────────────────
     const categories       = ref(categoriesData);
-    const products         = ref([]);
 
-    // Load products from products.json
-    fetch('products.json')
-      .then(r => r.json())
-      .then(data => { products.value = data; })
-      .catch(err => console.error('Failed to load products.json:', err));
+    // Products loaded directly from products.js (no fetch needed)
+    const products         = ref(productsData);
+
     const selectedCategoryId = ref('all');
     const searchQuery      = ref('');
     const searchResults    = ref(null);

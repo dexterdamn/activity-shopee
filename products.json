@@ -276,18 +276,18 @@
     "shop": "ArtsyKids PH 🎓",
     "categoryId": "diy"
   },
-  {
-    "id": 24,
-    "name": "Upcycled Bottle Vase — Hand-Painted, Dried Flower Ready",
-    "price": 175,
-    "originalPrice": 220,
-    "discount": 20,
-    "rating": 4.7,
-    "sold": 240,
-    "image": "https://images.unsplash.com/photo-1487530811015-780baf2e7fd7?w=400&h=400&fit=crop",
-    "shop": "BloomByStu 🎓",
-    "categoryId": "diy"
-  },
+{
+  "id": 24,
+  "name": "Upcycled Bottle Vase — Hand-Painted, Dried Flower Ready",
+  "price": 175,
+  "originalPrice": 220,
+  "discount": 20,
+  "rating": 4.7,
+  "sold": 240,
+  "image": "https://images.pexels.com/photos/35087600/pexels-photo-35087600.jpeg",
+  "shop": "BloomByStu 🎓",
+  "categoryId": "diy"
+},
   {
     "id": 25,
     "name": "DIY Popsicle Stick Organizer — Desk Caddy, 4 Slots, Hand Painted",
@@ -408,18 +408,18 @@
     "shop": "WeaversPH 🎓",
     "categoryId": "home"
   },
-  {
-    "id": 35,
-    "name": "Dried Flower & Pampas Grass Arrangement — Glass Vase Included",
-    "price": 265,
-    "originalPrice": 330,
-    "discount": 20,
-    "rating": 4.9,
-    "sold": 255,
-    "image": "https://images.unsplash.com/photo-1487530811015-780baf2e7fd7?w=400&h=400&fit=crop",
-    "shop": "BloomByStu 🎓",
-    "categoryId": "home"
-  },
+ {
+  "id": 35,
+  "name": "Dried Flower & Pampas Grass Arrangement — Glass Vase Included",
+  "price": 265,
+  "originalPrice": 330,
+  "discount": 20,
+  "rating": 4.9,
+  "sold": 255,
+  "image": "https://images.pexels.com/photos/12312664/pexels-photo-12312664.jpeg",
+  "shop": "BloomByStu 🎓",
+  "categoryId": "home"
+},
   {
     "id": 36,
     "name": "DIY Painted Inspirational Rock Set — 6pcs, Garden or Desk Decor",
@@ -539,5 +539,102 @@
     "image": "https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=400&h=400&fit=crop",
     "shop": "PetalPages 🎓",
     "categoryId": "toys"
+  },
+  {
+    "id": 46,
+    "name": "Student-Made Origami Crane Mobile — 20pcs, Colorful Paper",
+    "price": 120,
+    "originalPrice": 150,
+    "discount": 20,
+    "rating": 4.8,
+    "sold": 540,
+    "image": "https://images.unsplash.com/photo-1506784983877-45594efa4cbe?w=400&h=400&fit=crop",
+    "shop": "PaperWings PH 🎓",
+    "categoryId": "toys"
+  },
+  {
+    "id": 47,
+    "name": "Handmade Felt Animal Keychains — Set of 5, Assorted Designs, Soft & Cute",
+    "price": 95,
+    "originalPrice": 130,
+    "discount": 27, 
+    "rating": 4.8,
+    "sold": 620,
+    "image": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=400&fit=crop",
+    "shop": "SoftiesByS 🎓",
+    "categoryId": "toys"
+  },
+  {
+    "id": 48,
+    "name": "DIY Painted Rock Garden Markers — Set of 6, Herb & Vegetable Labels",
+    "price": 110,
+    "originalPrice": 150,
+    "discount": 27,
+    "rating": 4.8,
+    "sold": 480,
+    "image": "https://images.unsplash.com/photo-1567225557594-88d73e55f2cb?w=400&h=400&fit=crop",
+    "shop": "RockArtPH 🎓",
+    "categoryId": "garden"
+  },
+  {
+    "id": 49,
+    "name": "Handmade Macramé Plant Hanger — Boho Cotton Rope, Natural, 100cm",
+    "price": 175,
+    "originalPrice": 220,
+    "discount": 20,
+    "rating": 4.9,
+    "sold": 412,
+    "image": "https://images.unsplash.com/photo-1586348943529-beaae6c28db9?w=400&h=400&fit=crop",
+    "shop": "KnottedByKate 🎓",
+    "categoryId": "garden"
+  },
+  {
+    "id": 50,
+    "name": "Upcycled Tin Can Herb Garden Set — 3 Painted Pots + Seed Packets",
+    "price": 185,
+    "originalPrice": 230,
+    "discount": 20,
+    "rating": 4.8,
+    "sold": 305,
+    "image": "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=400&h=400&fit=crop",
+    "shop": "GreenThumb Students 🎓",
+    "categoryId": "garden"
+  },
+  {
+    "id": 51,
+    "name": "Handmade Wooden Birdhouse — Painted, Hanging or Tabletop Decor",
+    "price": 220,
+    "originalPrice": 280,
+    "discount": 21,
+    "rating": 4.9,
+    "sold": 195,
+    "image": "https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?w=400&h=400&fit=crop",
+    "shop": "WoodWorks PH 🎓",
+    "categoryId": "garden"
+  },
+  {
+    "id": 52,
+    "name": "DIY String Art Wall Decor — City Skyline / Sun Design, 30x30cm",
+    "price": 220,
+    "originalPrice": 280,
+    "discount": 21,
+    "rating": 4.9,
+    "sold": 195,
+    "image": "https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?w=400&h=400&fit=crop",
+    "shop": "KnottedByKate 🎓",
+    "categoryId": "garden"
+  },
+  {
+    "id": 53,
+    "name": "Hand-Painted Ceramic Plant Pot — 15cm, Geometric Design, Drainage Hole",
+    "price": 195,
+    "originalPrice": 250,
+    "discount": 22,
+    "rating": 4.8,
+    "sold": 210,
+    "image": "https://images.unsplash.com/photo-1612196808214-b8e1d6145a8c?w=400&h=400&fit=crop",
+    "shop": "CeramicsByC 🎓",
+    "categoryId": "garden"
   }
+  
 ]

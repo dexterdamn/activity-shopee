@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StudentMart — Student-Made Marketplace</title>
+  <link rel="stylesheet" href="app.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;500;600;700&family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js"></script>
+</head>
+<body>
+  <div id="app">
+
+    <!-- Header -->
+    <header class="header">
+      <div class="header-inner">
+        <a href="#" class="logo">
+          <div class="logo-icon">M</div>
+          <span class="logo-text">Market</span>
+        </a>
+
+        <div class="search-bar">
+          <i class="fas fa-search search-icon"></i>
+          <input
+            v-model="searchQuery"
+            type="text"
+            placeholder="Search products..."
+            @keyup.enter="onSearch"
+          />
+          <button type="button" class="search-btn" @click="onSearch">Search</button>
+        </div>
+
+        <div class="header-actions">
+          <template v-if="currentUser">
+            <div class="user-chip">
+              <div class="user-avatar">{{ currentUser.name.charAt(0).toUpperCase() }}</div>
+              <span class="user-name">{{ currentUser.name }}</span>
+            </div>
+            <button type="button" class="btn-ghost" @click="logout">
+              <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+          </template>
+          <template v-else>
+            <button type="button" class="btn-ghost" @click="openAuthModal('login')">Login</button>
+            <button type="button" class="btn-primary" @click="openAuthModal('register')">Sign Up</button>
+          </template>
+          <button type="button" class="cart-btn" @click="cartOpen = true">
+            <i class="fas fa-shopping-bag"></i>
+            <span v-if="cartCount > 0" class="cart-badge">{{ cartCount }}</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Categories -->
+    <nav class="categories-wrap">
+      <div class="container">
+        <div class="categories">
+          <button
+            v-for="cat in categories"
+            :key="cat.id"
+            type="button"
+            class="category-pill"
+            :class="{ active: selectedCategoryId === cat.id }"
+            @click="selectedCategoryId = cat.id"
+          >
+            <i :class="cat.icon"></i>
+            <span>{{ cat.name }}</span>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+
+  
+
+    <!-- Main content -->
+    <main class="main">
+      <div class="container">
+
+        <!-- Toolbar -->
+        <div class="toolbar">
+          <div class="toolbar-left">
+            <h2 class="section-title">
+              <span v-if="searchQuery && searchResults !== null">
+                "{{ searchQuery }}" — {{ filteredProducts.length }} results
+              </span>
+              <span v-else>
+                {{ currentCategoryName }}
+                <span class="product-count">({{ filteredProducts.length }})</span>
+              </span>
+            </h2>
+          </div>
+          <div class="toolbar-right">
+            <div class="view-toggle">
+              <button type="button" :class="{ active: viewMode === 'grid' }" @click="viewMode = 'grid'">
+                <i class="fas fa-th"></i>
+              </button>
+              <button type="button" :class="{ active: viewMode === 'list' }" @click="viewMode = 'list'">
+                <i class="fas fa-list"></i>
+              </button>
+            </div>
+            <div class="sort-wrap">
+              <select v-model="sortBy" class="sort-select" aria-label="Sort">
+                <option value="default">✦ Featured</option>
+                <option value="price_asc">↑ Price: Low to High</option>
+                <option value="price_desc">↓ Price: High to Low</option>
+                <option value="rating">★ Top Rated</option>
+                <option value="sold">🔥 Best Sellers</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- Product Grid -->
+        <div class="product-list" :class="viewMode">
+          <div
+            v-for="(product, index) in filteredProducts"
+            :key="product.id"
+            class="product-card"
+            :style="{ '--delay': index * 0.04 + 's' }"
+          >
+            <div class="product-image-wrap" @click="quickView(product)">
+              <img :src="product.image" :alt="product.name" class="product-image" loading="lazy" />
+              <div class="product-overlay">
+                <span class="overlay-text"><i class="fas fa-eye"></i> Quick View</span>
+              </div>
+              <span v-if="product.discount >= 30" class="badge badge-hot">🔥 HOT</span>
+              <span v-else-if="product.discount > 0" class="badge badge-sale">{{ product.discount }}% OFF</span>
+            </div>
+            <div class="product-info">
+              <div class="product-shop" v-if="product.shop">
+                <i class="fas fa-graduation-cap"></i> {{ product.shop }}
+              </div>
+              <h3 class="product-name">{{ product.name }}</h3>
+              <div class="product-rating">
+                <div class="stars">
+                  <i v-for="n in 5" :key="n" class="fas fa-star" :class="{ dim: n > Math.round(product.rating) }"></i>
+                </div>
+                <span class="rating-val">{{ product.rating }}</span>
+                <span class="sold-count">{{ product.sold?.toLocaleString() }} sold</span>
+              </div>
+              <div class="product-price-row">
+                <span class="product-price">₱{{ formatPrice(product.price) }}</span>
+                <span v-if="product.originalPrice && product.originalPrice > product.price" class="product-original">₱{{ formatPrice(product.originalPrice) }}</span>
+                <span v-if="product.discount > 0" class="savings">Save ₱{{ formatPrice(product.originalPrice - product.price) }}</span>
+              </div>
+              <button type="button" class="add-to-cart-btn" @click="addToCart(product)">
+                <i class="fas fa-shopping-bag"></i>
+                <span>Add to Cart</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Empty state -->
+          <div v-if="filteredProducts.length === 0" class="empty-state">
+            <div class="empty-icon">🔍</div>
+            <h3>No products found</h3>
+            <p>Try a different category or search term</p>
+            <button type="button" class="btn-primary" @click="resetFilters">Browse All Products</button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Quick View Modal -->
+    <div v-if="quickViewProduct" class="modal-overlay" @click.self="quickViewProduct = null">
+      <div class="quick-view-modal">
+        <button type="button" class="modal-close" @click="quickViewProduct = null">
+          <i class="fas fa-times"></i>
+        </button>
+        <div class="qv-grid">
+          <div class="qv-image-wrap">
+            <img :src="quickViewProduct.image" :alt="quickViewProduct.name" />
+            <span v-if="quickViewProduct.discount > 0" class="badge badge-sale qv-badge">{{ quickViewProduct.discount }}% OFF</span>
+          </div>
+          <div class="qv-details">
+            <div class="qv-shop" v-if="quickViewProduct.shop">
+              <i class="fas fa-graduation-cap"></i> {{ quickViewProduct.shop }}
+            </div>
+            <h2 class="qv-name">{{ quickViewProduct.name }}</h2>
+            <div class="qv-rating">
+              <div class="stars">
+                <i v-for="n in 5" :key="n" class="fas fa-star" :class="{ dim: n > Math.round(quickViewProduct.rating) }"></i>
+              </div>
+              <span>{{ quickViewProduct.rating }} · {{ quickViewProduct.sold?.toLocaleString() }} sold</span>
+            </div>
+            <div class="qv-price-block">
+              <span class="qv-price">₱{{ formatPrice(quickViewProduct.price) }}</span>
+              <span v-if="quickViewProduct.originalPrice > quickViewProduct.price" class="qv-original">₱{{ formatPrice(quickViewProduct.originalPrice) }}</span>
+            </div>
+            <div class="qv-savings" v-if="quickViewProduct.discount > 0">
+              You save ₱{{ formatPrice(quickViewProduct.originalPrice - quickViewProduct.price) }} ({{ quickViewProduct.discount }}% off)
+            </div>
+            <div class="qv-actions">
+              <button type="button" class="btn-add-cart" @click="addToCart(quickViewProduct); quickViewProduct = null">
+                <i class="fas fa-shopping-bag"></i> Add to Cart
+              </button>
+              <button type="button" class="btn-wishlist">
+                <i class="fas fa-heart"></i>
+              </button>
+            </div>
+            <div class="qv-perks">
+              <div class="perk"><i class="fas fa-shield-alt"></i> Student-Verified</div>
+              <div class="perk"><i class="fas fa-undo"></i> Easy Returns</div>
+              <div class="perk"><i class="fas fa-hand-holding-heart"></i> Supports Students</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cart Drawer -->
+    <div v-if="cartOpen" class="cart-overlay" @click.self="cartOpen = false">
+      <div class="cart-drawer">
+        <div class="cart-header">
+          <div class="cart-header-left">
+            <i class="fas fa-shopping-bag"></i>
+            <h2>My Cart</h2>
+            <span class="cart-item-count">{{ cartCount }}</span>
+          </div>
+          <button type="button" class="modal-close sm" @click="cartOpen = false">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+
+        <div class="cart-body">
+          <div v-if="cart.length === 0" class="cart-empty">
+            <div class="empty-cart-art">🛍️</div>
+            <h3>Your cart is empty</h3>
+            <p>Add some products to get started!</p>
+            <button type="button" class="btn-primary" @click="cartOpen = false">Browse Products</button>
+          </div>
+          <ul v-else class="cart-items">
+            <li v-for="item in cart" :key="item.productId" class="cart-item">
+              <div class="cart-item-img-wrap">
+                <img :src="item.image" :alt="item.name" loading="lazy" />
+              </div>
+              <div class="cart-item-info">
+                <h4>{{ item.name }}</h4>
+                <div class="cart-item-price-row">
+                  <span class="ci-price">₱{{ formatPrice(item.price) }}</span>
+                  <div class="qty-control">
+                    <button type="button" @click="decreaseQty(item)">−</button>
+                    <span>{{ item.quantity }}</span>
+                    <button type="button" @click="increaseQty(item)">+</button>
+                  </div>
+                </div>
+                <div class="ci-subtotal">Subtotal: ₱{{ formatPrice(item.price * item.quantity) }}</div>
+              </div>
+              <button type="button" class="ci-remove" @click="removeFromCart(item)">
+                <i class="fas fa-trash-alt"></i>
+              </button>
+            </li>
+          </ul>
+        </div>
+
+        <div v-if="cart.length > 0" class="cart-footer">
+          <div class="cart-summary">
+            <div class="summary-row">
+              <span>Subtotal</span>
+              <span>₱{{ formatPrice(cartTotal) }}</span>
+            </div>
+            <div class="summary-row total">
+              <span>Total</span>
+              <span>₱{{ formatPrice(cartTotal) }}</span>
+            </div>
+          </div>
+          <button type="button" class="checkout-btn" @click="checkout">
+            <i class="fas fa-lock"></i> Checkout · ₱{{ formatPrice(cartTotal) }}
+          </button>
+          <button type="button" class="clear-cart" @click="clearCart">
+            <i class="fas fa-trash"></i> Clear Cart
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Auth Modal -->
+    <div v-if="authModalOpen" class="modal-overlay" @click.self="closeAuthModal">
+      <div class="auth-modal">
+        <button type="button" class="modal-close" @click="closeAuthModal">
+          <i class="fas fa-times"></i>
+        </button>
+        <div class="auth-brand">
+          <div class="logo-icon sm">S</div>
+          <span>StudentMart</span>
+        </div>
+        <div class="auth-tabs">
+          <button type="button" :class="{ active: authMode === 'login' }" @click="authMode = 'login'">Login</button>
+          <button type="button" :class="{ active: authMode === 'register' }" @click="authMode = 'register'">Register</button>
+        </div>
+
+        <div class="auth-body">
+          <p v-if="authError" class="auth-error">
+            <i class="fas fa-exclamation-circle"></i> {{ authError }}
+          </p>
+
+          <form v-if="authMode === 'login'" @submit.prevent="login" class="auth-form">
+            <div class="field">
+              <label>Email Address</label>
+              <div class="input-wrap">
+                <i class="fas fa-envelope"></i>
+                <input v-model="loginForm.email" type="email" placeholder="you@email.com" required />
+              </div>
+            </div>
+            <div class="field">
+              <label>Password</label>
+              <div class="input-wrap">
+                <i class="fas fa-lock"></i>
+                <input v-model="loginForm.password" type="password" placeholder="Your password" required />
+              </div>
+            </div>
+            <button type="submit" class="auth-submit">Login</button>
+          </form>
+
+          <form v-else @submit.prevent="register" class="auth-form">
+            <div class="field">
+              <label>Full Name</label>
+              <div class="input-wrap">
+                <i class="fas fa-user"></i>
+                <input v-model="registerForm.name" type="text" placeholder="Your full name" required />
+              </div>
+            </div>
+            <div class="field">
+              <label>Email Address</label>
+              <div class="input-wrap">
+                <i class="fas fa-envelope"></i>
+                <input v-model="registerForm.email" type="email" placeholder="you@email.com" required />
+              </div>
+            </div>
+            <div class="field">
+              <label>Password</label>
+              <div class="input-wrap">
+                <i class="fas fa-lock"></i>
+                <input v-model="registerForm.password" type="password" placeholder="Min 6 characters" required />
+              </div>
+            </div>
+            <div class="field">
+              <label>Confirm Password</label>
+              <div class="input-wrap">
+                <i class="fas fa-lock"></i>
+                <input v-model="registerForm.confirmPassword" type="password" placeholder="Confirm password" required />
+              </div>
+            </div>
+            <button type="submit" class="auth-submit">Create Account</button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- Login Required Modal -->
+    <div v-if="loginRequiredOpen" class="modal-overlay" @click.self="loginRequiredOpen = false">
+      <div class="login-required-modal">
+        <button type="button" class="modal-close" @click="loginRequiredOpen = false">
+          <i class="fas fa-times"></i>
+        </button>
+        <div class="lr-icon">🔒</div>
+        <h3>Login Required</h3>
+        <p>You need to be logged in to add items to your cart.</p>
+        <div class="lr-actions">
+          <button type="button" class="btn-primary" @click="loginRequiredOpen = false; openAuthModal('login')">Login</button>
+          <button type="button" class="btn-ghost" @click="loginRequiredOpen = false; openAuthModal('register')">Create Account</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Toast -->
+    <transition name="toast">
+      <div v-if="showToast" class="toast" :class="toastType">
+        <i :class="toastType === 'success' ? 'fas fa-check-circle' : 'fas fa-info-circle'"></i>
+        {{ toastMessage }}
+      </div>
+    </transition>
+
+  </div>
+
+  <script src="categories.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
